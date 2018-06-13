@@ -85,6 +85,23 @@ images/train2017/*.jpg
 images/val2017/*/jpg
 ```
 
+### Create the Batch AI cluster
+
+Modify the file `cluster.json` to include your storage account name and storage account key where indicated. (Your storage account key was saved in the local variable %STORAGE_ACCOUNT_KEY% by an earlier command.) Then, select a name for your cluster and execute the following command in the Batch AI CLI:
+
+```
+set CLUSTER_NAME=[your selected cluster name]
+az batchai cluster create -n %CLUSTER_NAME% --image UbuntuDSVM --resource-group %AZURE_RESOURCE_GROUP% -c cluster.json
+```
+
+Your cluster may take roughly ten minutes to provision. To check on progress, execute the command below to check whether both VMs have entered the "idle" state or are still being prepared:
+
+```
+az batchai cluster show -n %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP%
+```
+
+## Submit training jobs
+
 
 ### Contributing
 
