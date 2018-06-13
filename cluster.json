@@ -1,0 +1,48 @@
+{
+  "location": "eastus",
+  "properties": {
+    "scaleSettings": {
+      "manual": {
+        "nodeDeallocationOption": "requeue",
+        "targetNodeCount": 2
+      }
+    },
+    "userAccountSettings": {
+      "adminUserPassword": "xvpassword",
+      "adminUserName": "xvuser"
+    },
+    "vmPriority": "dedicated",
+    "vmSize": "STANDARD_NC24",
+    "nodeSetup": {
+      "setupTask": {
+        "commandLine": "sudo /anaconda/envs/py35/bin/pip install horovod pycocotools; cd /tmp; sudo git clone https://github.com/fizyr/keras-retinanet.git; cd /tmp/keras-retinanet; sudo /anaconda/envs/py35/bin/pip install .",
+        "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/afs"
+      },
+      "mountVolumes": {
+        "azureFileShares": [
+          {
+            "accountName": "[your storage account name]",
+            "azureFileUrl": "https://[your storage account name].file.core.windows.net/batchaicoco",
+            "credentials": {
+              "accountKey": "[your storage account key]"
+            },
+            "directoryMode": "0777",
+            "fileMode": "0777",
+            "relativeMountPath": "afs_batchai"
+          }
+        ],
+        "azureBlobFileSystems": [
+          {
+            "accountName": "xviewgpstorage",
+            "containerName": "coco",
+            "credentials": {
+              "accountKey": "[your storage account key]"
+            },
+            "relativeMountPath": "coco",
+            "mountOptions": ""
+          }
+        ]
+      }
+    }
+  }
+}
