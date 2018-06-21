@@ -1,4 +1,8 @@
-# Distributed training of a keras-retinanet model on the COCO dataset using Horovod on Azure Batch AI
+# Distributed training of a Fizyr Keras-RetinaNet model on the COCO dataset using Horovod on Azure Batch AI
+
+## Overview
+
+This repository demonstrates how to train a RetinaNet object detection model using [Horovod](https://github.com/uber/horovod) on the [Azure Batch AI](https://azure.microsoft.com/services/batch-ai/) platform. We use [Fizyr](https://fizyr.com/)'s [Keras-RetinaNet](https://github.com/fizyr/keras-retinanet/tree/master/keras_retinanet) implementation of RetinaNet for the model architecture and training method, with minor modifications to allow distributed training via Horovod. For more information and motivation on our approach, please see our [blog post](https://blogs.technet.microsoft.com/machinelearning/2018/06/20/how-to-do-distributed-deep-learning-for-object-detection-using-horovod-on-azure/).
 
 ## Set up the Azure Batch AI cluster
 
