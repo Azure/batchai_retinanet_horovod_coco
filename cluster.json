@@ -33,7 +33,7 @@
         ],
         "azureBlobFileSystems": [
           {
-            "accountName": "xviewgpstorage",
+            "accountName": "[your storage account name]",
             "containerName": "coco",
             "credentials": {
               "accountKey": "[your storage account key]"
