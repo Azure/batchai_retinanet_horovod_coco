@@ -104,7 +104,7 @@ Modify the file `cluster.json` to include your storage account name and storage 
 
 ```
 set CLUSTER_NAME=[your selected cluster name]
-az batchai cluster create -n %CLUSTER_NAME% --image UbuntuDSVM --resource-group %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -c cluster.json
+az batchai cluster create -n %CLUSTER_NAME% --image UbuntuDSVM --resource-group %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -f cluster.json
 ```
 
 Your cluster may take roughly ten minutes to provision. To check on progress, execute the command below to check whether both VMs have entered the "idle" state or are still being prepared:
@@ -129,13 +129,13 @@ az batch job show -n %JOB_NAME%  -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
 
 You can also monitor the streaming output for your job with the commands below:
 ```
-az batchai job stream-file -d stdouterr -j  %JOB_NAME% -n stdout.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
-az batchai job stream-file -d stdouterr -j  %JOB_NAME% -n stderr.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
+az batchai job file stream -d stdouterr -j  %JOB_NAME% -n stdout.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
+az batchai job file stream -d stdouterr -j  %JOB_NAME% -n stderr.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
 ```
 
 Finally, you can find the saved model checkpoints created by your job using the following command. The timestamps on the checkpoints can be used to find the epoch length:
 ```
-az batchai job list-files -n  %JOB_NAME% -d outputfiles -w %WORKSPACE_NAME%
+az batchai job file list -n  %JOB_NAME% -d outputfiles -w %WORKSPACE_NAME%
 ```
 
 The files can be downloaded using the URLs provided in this command's output, or using your favorite Azure file transfer utility such as Azure Portal or Azure Storage Explorer.
