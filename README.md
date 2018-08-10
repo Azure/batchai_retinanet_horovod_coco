@@ -89,18 +89,25 @@ images/train2017/*.jpg
 images/val2017/*/jpg
 ```
 
-### Create the Batch AI workspace
+### Create the Batch AI workspace and experiment
 
-The workspace will house your cluster and training jobs. Select a name for your workspace and execute the following command in the Batch AI CLI:
+The workspace will house your cluster and training jobs. Select a name for your workspace and execute the following command in the CLI:
 
 ```
 set WORKSPACE_NAME=[your selected workspace name]
 az batchai workspace create -n %WORKSPACE_NAME% --resource-group %AZURE_RESOURCE_GROUP% 
 ```
 
+Your jobs will be further grouped under an experiment. Select a name for your experiment and execute the following command in the CLI:
+
+```
+set EXPERIMENT_NAME=[your selected experiment name]
+az batchai experiment create -n %EXPERIMENT_NAME% -w %WORKSPACE_NAME% --resource-group %AZURE_RESOURCE_GROUP% 
+```
+
 ### Create the Batch AI cluster
 
-Modify the file `cluster.json` to include your storage account name and storage account key where indicated. (Your storage account key was saved in the local variable %STORAGE_ACCOUNT_KEY% by an earlier command.) Then, select a name for your cluster and execute the following command in the Batch AI CLI:
+Modify the file `cluster.json` to include your storage account name and storage account key where indicated. (Your storage account key was saved in the local variable %STORAGE_ACCOUNT_KEY% by an earlier command.) Then, select a name for your cluster and execute the following command in the CLI:
 
 ```
 set CLUSTER_NAME=[your selected cluster name]
@@ -119,18 +126,18 @@ If desired, modify the `training_job.json` file to use a specific number of GPUs
 
 ```
 set JOB_NAME=[your selected job name]
-az batchai job create -n %JOB_NAME% -r %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
+az batchai job create -n %JOB_NAME% -r %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME%
 ```
 
 You can check that your job is running successfully using the command below:
 ```
-az batch job show -n %JOB_NAME%  -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
+az batch job show -n %JOB_NAME% -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
 ```
 
 You can also monitor the streaming output for your job with the commands below:
 ```
-az batchai job file stream -d stdouterr -j  %JOB_NAME% -n stdout.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
-az batchai job file stream -d stdouterr -j  %JOB_NAME% -n stderr.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
+az batchai job file stream -d stdouterr -j %JOB_NAME% -n stdout.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
+az batchai job file stream -d stdouterr -j %JOB_NAME% -n stderr.txt -g %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
 ```
 
 Finally, you can find the saved model checkpoints created by your job using the following command. The timestamps on the checkpoints can be used to find the epoch length:
