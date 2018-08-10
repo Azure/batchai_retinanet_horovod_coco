@@ -126,7 +126,7 @@ If desired, modify the `training_job.json` file to use a specific number of GPUs
 
 ```
 set JOB_NAME=[your selected job name]
-az batchai job create -n %JOB_NAME% -r %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME%
+az batchai job create -n %JOB_NAME% -r %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME% -f training_job.json
 ```
 
 You can check that your job is running successfully using the command below:
