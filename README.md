@@ -111,7 +111,7 @@ Modify the file `cluster.json` to include your storage account name and storage 
 
 ```
 set CLUSTER_NAME=[your selected cluster name]
-az batchai cluster create -n %CLUSTER_NAME% --image UbuntuDSVM --resource-group %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -f cluster.json
+az batchai cluster create -n %CLUSTER_NAME% --image UbuntuDSVM --resource-group %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME%
 ```
 
 Your cluster may take roughly ten minutes to provision. To check on progress, execute the command below to check whether both VMs have entered the "idle" state or are still being prepared:
@@ -126,7 +126,7 @@ If desired, modify the `training_job.json` file to use a specific number of GPUs
 
 ```
 set JOB_NAME=[your selected job name]
-az batchai job create -n %JOB_NAME% -r %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME% -f training_job.json
+az batchai job create -n %JOB_NAME% -c %CLUSTER_NAME% -g  %AZURE_RESOURCE_GROUP% -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME% -f training_job.json
 ```
 
 You can check that your job is running successfully using the command below:
