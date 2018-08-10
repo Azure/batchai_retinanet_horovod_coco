@@ -142,7 +142,7 @@ az batchai job file stream -d stdouterr -j %JOB_NAME% -n stderr.txt -g %AZURE_RE
 
 Finally, you can find the saved model checkpoints created by your job using the following command. The timestamps on the checkpoints can be used to find the epoch length:
 ```
-az batchai job file list -n  %JOB_NAME% -d outputfiles -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME%
+az batchai job file list -j  %JOB_NAME% -d outputfiles -w %WORKSPACE_NAME% -e %EXPERIMENT_NAME%
 ```
 
 The files can be downloaded using the URLs provided in this command's output, or using your favorite Azure file transfer utility such as Azure Portal or Azure Storage Explorer.
